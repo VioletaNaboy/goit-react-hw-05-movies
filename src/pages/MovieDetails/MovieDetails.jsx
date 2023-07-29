@@ -4,7 +4,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { useParams, useLocation } from 'react-router-dom';
 import { BackLink } from '../../components/BackLink/BackLink';
 import { getMovies } from '../../APIservice';
-
+import details from './MovieDetails.module.css';
 const MovieDetails = () => {
   const { id } = useParams();
   const location = useLocation();
@@ -32,31 +32,35 @@ const MovieDetails = () => {
   return (
     <main>
       <BackLink to={backLinkHref}>Back to Home</BackLink>
-      <div>
+      <div className={details.wrapper}>
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
         />
-        <h1>{movie.title}</h1>
-        <div>
-          <span>User Score: {movie.vote_average}</span>
-        </div>
+        <div className={details.wrapperInfo}>
+          <h1>{movie.title}</h1>
+          <div>
+            <span>User Score: {movie.vote_average}</span>
+          </div>
 
-        <div>
-          <h2>Overview</h2>
-          <span>{movie.overview}</span>
-        </div>
+          <div>
+            <h2>Overview</h2>
+            <span>{movie.overview}</span>
+          </div>
 
-        <div>
-          <h2>Genres</h2>
-          <ul>
-            {movie.genres.map(genre => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
+          <div>
+            <h2>Genres</h2>
+            <ul>
+              {movie.genres.map(genre => (
+                <li key={genre.id}>{genre.name}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
+      <hr />
       <ul>
+        <h2>Additional Information</h2>
         <li>
           <Link to="cast">Cast</Link>
         </li>
@@ -64,6 +68,7 @@ const MovieDetails = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
+      <hr />
       <Suspense fallback={<div>Loading subpage...</div>}>
         <Outlet />
       </Suspense>

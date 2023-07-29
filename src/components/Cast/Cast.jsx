@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovies } from '../../APIservice';
+import castCSS from './Cast.module.css';
 const Cast = () => {
   const { id } = useParams();
   const [cast, setCast] = useState({});
@@ -23,7 +24,7 @@ const Cast = () => {
       {cast.cast && cast.cast.length > 0 ? (
         <ul>
           {cast.cast.map(unit => (
-            <li key={unit.id}>
+            <li key={unit.id} className={castCSS.unit}>
               {unit.profile_path && (
                 <img
                   src={`https://image.tmdb.org/t/p/w500${unit.profile_path}`}
